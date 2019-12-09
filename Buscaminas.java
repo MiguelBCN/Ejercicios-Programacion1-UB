@@ -49,6 +49,7 @@ public class Buscaminas {
 
         game = createLayout(n, '?');
         bombs = createLayout(n, '?');
+
         placeBombs(bombs, n, n);
         System.out.println("The board: \n" + printLayout(game, n));
         System.out.println("There are " + n + " bombs, FIND THEM!!!");

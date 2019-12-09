@@ -25,6 +25,7 @@ total del seu lloguer.
 
 
     }
+}
 
     class Cotxe {
         /*
@@ -56,9 +57,9 @@ total del seu lloguer.
             this.numDiesLloguer = numDiesLloguer;
         }
 
-        boolean estaLlogat(boolean llogat) {
+        boolean estaLlogat() {
             //veure si el cotxe està llogat.
-            return llogat;
+            return this.llogat;
         }
 
         void llogar(int numDiesLloguer) {
@@ -74,22 +75,28 @@ total del seu lloguer.
 
     }
 
+
     /*Per guardar el conjunt de cotxes, definiu la classe TaulaCotxe que emmagatzema
     un conjunt de cotxes (màxim seran 100). En aquesta classe tindreu els següents
     mètodes:*/
     class TaulaCotxe {
 
         Cotxe[] coches;
+        int limit;
+        int totalAutos;
 
-        public TaulaCotxe(int max) {
+        public TaulaCotxe(int limit) {
             //TaulaCotxe(int limit), mètode constructor.
-            this.coches = new Cotxe[max];
+            this.coches = new Cotxe[limit];
+            this.limit=limit;
+            totalAutos=0;
         }
 
         void afegir(String marca, String model, String color, float preu) {
             //mètode per afegir un nou cotxe al conjunt de cotxes.
-            int ultimaPos = coches.length;
-            coches[ultimaPos]  = new Cotxe(ultimaPos, marca, model, color, preu, false, 0);
+            coches[totalAutos]  = new Cotxe(totalAutos, marca, model, color, preu, false, 0);
+            totalAutos++;
+            System.out.printf("Se a añadido correctamente el auto con el id:%s ,marca:%s ,modelo:%s ,color:%s ,precio por dia:",totalAutos,marca,model,color,preu);
         }
 
         void veurePreu(int id) {
@@ -102,13 +109,12 @@ total del seu lloguer.
             coches[id].llogat=true;
             coches[id].numDiesLloguer=dies;
             System.out.printf("El auto con la id: %s se ha alquilado correctamente por %s dias%n",id,dies);
-
-
         }
 
         void lliurar(int id) {
             //mètode per lliurar un cotxe a partir del seu id.
             coches[id].llogat=false;
+            coches[id].numDiesLloguer=0;
             System.out.printf("El auto con la id: %s se ha libreado correctamente%n",id);
         }
 
@@ -119,6 +125,7 @@ total del seu lloguer.
         l’array (que estaven a la dreta del cotxe a esborrar) per a ocupar l’espai que deixa
         aquest cotxe.*/
             //NOTA:Entonces
+
 
         }
 
@@ -148,5 +155,5 @@ total del seu lloguer.
     }
 
 
-}
+
 
