@@ -1,3 +1,5 @@
+import java.sql.SQLOutput;
+
 public class LloguerCotxes {
     /*
 
@@ -22,8 +24,20 @@ total del seu lloguer.
 
 */
     public static void main(String[] args) {
+        TaulaCotxe tablaCoche;
+        
 
 
+    }
+    static void imprimirMenu(){
+        System.out.println("---MENU---");
+        System.out.println("1.-Añadir coche");
+        System.out.println("2.-Ver coches disponibles");
+        System.out.println("3.-Ver coches alquilados");
+        System.out.println("4.-Borrar coche");
+        System.out.println("5.-Alquilar coche");
+        System.out.println("6.-Liberar coche");
+        System.out.println("7.-Ver precio de alquiler");
     }
 }
 
