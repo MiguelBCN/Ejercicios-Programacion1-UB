@@ -1,31 +1,107 @@
-import java.sql.SQLOutput;
+package com.miguelub;
+import java.util.Scanner;
 
 public class LloguerCotxes {
     /*
 
     A continuació feu una classe (LloguerCotxes) que permetra guardar un conjunt
 de cotxes, i les opcions del menú seran:
-• Afegir cotxe: demanarà les dades del nou cotxe i l'afegirà al conjunt de cotxes.
-• Veure cotxes disponibles: mostrarà informació dels cotxes no llogats.
-• Veure cotxes llogats: mostrarà informació dels cotxes llogats, mostrant per a
-cadascun d'ells els dies que està llogat.
-• Esborrar cotxe: mostrarà informació dels cotxes disponibles, amb el seu ID (els
-cotxes llogats no els podem eliminar). A continuació, donat l’ID, s'eliminarà el
-cotxe amb aquest identificador.
-• Llogar cotxe: mostrarà informació dels cotxes disponibles, cadascun amb el seu
-ID. A continuació es demanarà el ID del cotxe a llogar i el número de dies que es
-desitja llogar. El cotxe quedarà com a llogat des d'aquell moment.
-• Lliurar cotxe: mostrarà els cotxes llogats, cadascun amb el seu ID. A continuació.
-Es demanarà el ID del cotxe a lliurar. El cotxe quedarà com a disponible des
-d'aquell moment.
-• Veure preu de lloguer: mostrarà informació dels cotxes llogats, cadascun amb el
-seu ID. A continuació es demanarà el ID del cotxe a veure i es mostrarà el preu
-total del seu lloguer.
-
 */
     public static void main(String[] args) {
         TaulaCotxe tablaCoche;
-        
+        Scanner sc =new Scanner(System.in);
+        int opcion,id,dias;
+        String marca,modelo,color;
+        float precio;
+        boolean salir=false;
+
+        System.out.println("Comenzando el programa de alquiler de coches..");
+
+        System.out.println("Escoja cuantos autos tendra almacenados(max:100)");
+        opcion=sc.nextInt();
+        tablaCoche=new TaulaCotxe(opcion);
+
+        imprimirMenu();
+        System.out.println("Por favor escoja la opcion:");
+        opcion=sc.nextInt();
+
+         while (!salir){
+             switch (opcion){
+                 case 1:
+                     //Afegir cotxe: demanarà les dades del nou cotxe i l'afegirà al conjunt de cotxes.
+                     System.out.println("Ha seleccionado la opcion añadir un coche");
+                     System.out.println("Por favor ingrese los datos necesarios para añadir un coche:");
+                     System.out.println("Marca:");
+                     //marca=sc.next();
+                     marca="Nova";
+                     System.out.println("Modelo:");
+                     //modelo=sc.next();
+                     modelo="kg5d";
+                     System.out.println("Color:");
+                     //color=sc.next();3
+                     color="negro";
+                     System.out.println("Precio de alquiler por dia:");
+                     //precio=sc.nextFloat();
+                     precio=20;
+                     tablaCoche.afegir(marca,modelo,color,precio);
+
+
+                     break;
+                 case 2:
+                     //Veure cotxes disponibles: mostrarà informació dels cotxes no llogats.
+                     tablaCoche.veureDisponibles();
+                     break;
+                 case 3:
+                     //Veure cotxes llogats: mostrarà informació dels cotxes llogats, mostrant per a cadascun d'ells els dies que està llogat.
+                     tablaCoche.veureLlogats();
+                     break;
+                 case 4:
+                     //Esborrar cotxe: mostrarà informació dels cotxes disponibles, amb el seu ID (els
+                     //cotxes llogats no els podem eliminar). A continuació, donat l’ID, s'eliminarà el cotxe amb aquest identificador.
+                     System.out.println("Ha seleccionado la opcion de borrar ");
+                     System.out.println("Por favor ingrese la id del coche que desea borrar:");
+                     System.out.println("id:");
+                     id=sc.nextInt();
+                     tablaCoche.esborrar(id);
+                     break;
+                 case 5:
+                     //Llogar cotxe: mostrarà informació dels cotxes disponibles, cadascun amb el seu
+                     //ID. A continuació es demanarà el ID del cotxe a llogar i el número de dies que es
+                     //desitja llogar. El cotxe quedarà com a llogat des d'aquell moment.
+
+                     System.out.println("Ha seleccionado alquilar un coche por favor ingre la id del coche y los dias que desea alquilarlo");
+                     System.out.println("id:");
+                     id=sc.nextInt();
+                     System.out.println("Dias a alquilar:");
+                     dias=sc.nextInt();
+                     tablaCoche.llogar(id,dias);
+                     break;
+                 case 6:
+                     //Lliurar cotxe: mostrarà els cotxes llogats, cadascun amb el seu ID. A continuació.
+                     //Es demanarà el ID del cotxe a lliurar. El cotxe quedarà com a disponible des d'aquell moment
+                     System.out.println("Ha seleccionado liberar  un coche por favor ingrese la id del coche");
+                     System.out.println("id:");
+                     id=sc.nextInt();
+                     tablaCoche.lliurar(id);
+                     break;
+                 case 7:
+                     //Veure preu de lloguer: mostrarà informació dels cotxes llogats, cadascun amb el
+                     //seu ID. A continuació es demanarà el ID del cotxe a veure i es mostrarà el preu total del seu lloguer.
+                     for (int i = 0; i <tablaCoche.totalAutos ; i++) {
+                         if(tablaCoche.coches[i].llogat)
+                             tablaCoche.veurePreu(i);
+
+                     }
+
+                     break;
+                 default:
+                     salir=true;
+                     break;
+             }
+             imprimirMenu();
+             System.out.println("Por favor escoja la opcion:");
+             opcion=sc.nextInt();
+         }
 
 
     }
@@ -96,13 +172,20 @@ total del seu lloguer.
     class TaulaCotxe {
 
         Cotxe[] coches;
-        int limit;
+         int maxAutos;
         int totalAutos;
 
         public TaulaCotxe(int limit) {
             //TaulaCotxe(int limit), mètode constructor.
-            this.coches = new Cotxe[limit];
-            this.limit=limit;
+            Scanner sc=new Scanner(System.in);
+            while(limit>100){
+                System.out.printf("Error ha sobrepasado el  limite permitido (100) ,vuelva a introducirlo:%n");
+                limit=sc.nextInt();
+
+            }
+            this.maxAutos=limit;
+            this.coches = new Cotxe[maxAutos];
+            this.maxAutos=limit;
             totalAutos=0;
         }
 
@@ -138,31 +221,49 @@ total del seu lloguer.
         quedar sense “buits”. Això vol dir que s’han de desplaçar tots els elements de
         l’array (que estaven a la dreta del cotxe a esborrar) per a ocupar l’espai que deixa
         aquest cotxe.*/
-            //NOTA:Entonces
+            for (int i = 0; i <totalAutos ; i++) {
+                if(coches[i].iD==id){
+                    for (int j = i+1; j <totalAutos ; j++,i++) {
+                        coches[i]=coches[j];
+                    }
+                    coches[i]=null;
+                }
 
+            }
+            this.totalAutos--;
 
         }
 
         void veureDisponibles() {
             //mètode per llistar els IDs de tots els cotxes que estiguin disponibles en el conjunt.
-            for (int i = 0; i <coches.length ; i++) {
+            int autosDisponibles=0;
+            for (int i = 0; i <totalAutos ; i++) {
                 if (!coches[i].llogat){
-                    System.out.println("La id de los autos disponibles es :");
+                    
                     System.out.print(coches[i].iD+" ");
-
+                    autosDisponibles++;
+                    System.out.println();
                 }
             }
+            if (autosDisponibles==0)
+                System.out.println("No hay autos disponibles");
             System.out.println();
+
         }
 
         void veureLlogats() {
+            int autosAlquildos=0;
             //mètode per llistat els IDs de tots els cotxes que estan llogats del conjunt de cotxes.
-            for (int i = 0; i <coches.length ; i++) {
+            for (int i = 0; i <totalAutos ; i++) {
                 if (coches[i].llogat){
                     System.out.println("La id de los autos ya alquilados es :");
                     System.out.print(coches[i].iD+" ");
+                    autosAlquildos++;
+                    System.out.println();
                 }
             }
+            if (autosAlquildos==0)
+                System.out.println("Actualmente no hay autos alquilados");
             System.out.println();
         }
 
