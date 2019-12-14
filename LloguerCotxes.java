@@ -1,4 +1,4 @@
-package com.miguelub;
+
 import java.util.Scanner;
 
 public class LloguerCotxes {
@@ -170,6 +170,8 @@ de cotxes, i les opcions del menú seran:
     un conjunt de cotxes (màxim seran 100). En aquesta classe tindreu els següents
     mètodes:*/
     class TaulaCotxe {
+        //La variable maxAutos tendra un valor unico  y como max 100
+        //La variable totalAutos empecera en 0 e ira aumentando en 1 cada vez que se agregue un auto
 
         Cotxe[] coches;
          int maxAutos;
@@ -189,6 +191,7 @@ de cotxes, i les opcions del menú seran:
             totalAutos=0;
         }
 
+
         void afegir(String marca, String model, String color, float preu) {
             //mètode per afegir un nou cotxe al conjunt de cotxes.
             coches[totalAutos]  = new Cotxe(totalAutos, marca, model, color, preu, false, 0);
@@ -198,7 +201,8 @@ de cotxes, i les opcions del menú seran:
 
         void veurePreu(int id) {
             //mètode per veure el preu total del lloguer del cotxe amb l’id indicat al paràmetre.
-            System.out.println(coches[id].preuPerDia);
+
+            System.out.printf("El coche con la id:%s tiene un precio de alquiler por dia de :%s %n",coches[id].iD,coches[id].preuPerDia);
         }
 
         void llogar(int id, int dies) {
@@ -221,6 +225,7 @@ de cotxes, i les opcions del menú seran:
         quedar sense “buits”. Això vol dir que s’han de desplaçar tots els elements de
         l’array (que estaven a la dreta del cotxe a esborrar) per a ocupar l’espai que deixa
         aquest cotxe.*/
+            System.out.printf("El auto con la id: %s se ha eliminado correctamente%n",id);
             for (int i = 0; i <totalAutos ; i++) {
                 if(coches[i].iD==id){
                     for (int j = i+1; j <totalAutos ; j++,i++) {
@@ -240,9 +245,8 @@ de cotxes, i les opcions del menú seran:
             for (int i = 0; i <totalAutos ; i++) {
                 if (!coches[i].llogat){
                     
-                    System.out.print(coches[i].iD+" ");
+                    System.out.printf("El auto con la id:%s esta disponible para alquilar con un precio de %s euros por dia %n",coches[i].iD,coches[i].preuPerDia);
                     autosDisponibles++;
-                    System.out.println();
                 }
             }
             if (autosDisponibles==0)
@@ -256,10 +260,8 @@ de cotxes, i les opcions del menú seran:
             //mètode per llistat els IDs de tots els cotxes que estan llogats del conjunt de cotxes.
             for (int i = 0; i <totalAutos ; i++) {
                 if (coches[i].llogat){
-                    System.out.println("La id de los autos ya alquilados es :");
-                    System.out.print(coches[i].iD+" ");
+                    System.out.printf("El auto con la id:%s ya esta alquilado por %s dias %n",coches[i].iD,coches[i].numDiesLloguer);
                     autosAlquildos++;
-                    System.out.println();
                 }
             }
             if (autosAlquildos==0)
