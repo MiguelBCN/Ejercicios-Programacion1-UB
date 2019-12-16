@@ -32,17 +32,15 @@ de cotxes, i les opcions del menú seran:
                      System.out.println("Ha seleccionado la opcion añadir un coche");
                      System.out.println("Por favor ingrese los datos necesarios para añadir un coche:");
                      System.out.println("Marca:");
-                     //marca=sc.next();
-                     marca="Nova";
+                     marca=sc.next();
+
                      System.out.println("Modelo:");
-                     //modelo=sc.next();
-                     modelo="kg5d";
+                     modelo=sc.next();
+
                      System.out.println("Color:");
-                     //color=sc.next();3
-                     color="negro";
+                     color=sc.next();
                      System.out.println("Precio de alquiler por dia:");
-                     //precio=sc.nextFloat();
-                     precio=20;
+                     precio=sc.nextFloat();
                      tablaCoche.afegir(marca,modelo,color,precio);
 
 
@@ -87,11 +85,15 @@ de cotxes, i les opcions del menú seran:
                  case 7:
                      //Veure preu de lloguer: mostrarà informació dels cotxes llogats, cadascun amb el
                      //seu ID. A continuació es demanarà el ID del cotxe a veure i es mostrarà el preu total del seu lloguer.
+                     int alquilados=0;
                      for (int i = 0; i <tablaCoche.totalAutos ; i++) {
-                         if(tablaCoche.coches[i].llogat)
-                             tablaCoche.veurePreu(i);
+                         if(tablaCoche.coches[i].llogat){
+                             alquilados++;
+                             tablaCoche.veurePreu(i);}
 
                      }
+                     if (alquilados==0)
+                         System.out.println("No hay autos alquilados por el momento");
 
                      break;
                  default:
@@ -196,7 +198,7 @@ de cotxes, i les opcions del menú seran:
             //mètode per afegir un nou cotxe al conjunt de cotxes.
             coches[totalAutos]  = new Cotxe(totalAutos, marca, model, color, preu, false, 0);
             totalAutos++;
-            System.out.printf("Se a añadido correctamente el auto con el id:%s ,marca:%s ,modelo:%s ,color:%s ,precio por dia:",totalAutos,marca,model,color,preu);
+            System.out.printf("Se a añadido correctamente el auto con el id:%s ,marca:%s ,modelo:%s ,color:%s ,precio por dia:%s %n",totalAutos,marca,model,color,preu);
         }
 
         void veurePreu(int id) {
