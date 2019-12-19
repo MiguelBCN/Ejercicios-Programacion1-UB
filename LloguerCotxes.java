@@ -239,7 +239,7 @@ de cotxes, i les opcions del menú seran:
             int autosDisponibles=0;
             for (int i = 0; i <totalAutos ; i++) {
                 if (!coches[i].llogat){
-                    
+
                     System.out.print(coches[i].iD+" ");
                     autosDisponibles++;
                     System.out.println();
